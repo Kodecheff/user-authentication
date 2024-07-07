@@ -1,6 +1,6 @@
-import express from "express";
-import bcrypt from "bcryptjs";
-import jwt from 'jsonwebtoken'
+import express = require("express");
+import bcrypt = require("bcryptjs");
+import jwt = require('jsonwebtoken')
 import { body, validationResult } from "express-validator";
 import { v4 as uuidv4 } from "uuid";
 

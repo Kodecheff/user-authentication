@@ -1,8 +1,8 @@
-import express from 'express';
-import dotEnv from 'dotenv'
-import bodyParser from 'body-parser';
-import fileUpload from 'express-fileupload';
-import session,{Session} from 'express-session'
+import express = require('express');
+import dotEnv = require('dotenv')
+import fileUpload = require('express-fileupload');
+import session = require('express-session')
+import { Session } from 'express-session';
 
 import authRoute from './routers/auth'
 import apiRoute from './routers/api'

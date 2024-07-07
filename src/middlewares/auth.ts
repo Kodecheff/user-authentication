@@ -1,5 +1,5 @@
-import express from 'express'
-import jwt from 'jsonwebtoken'
+import express = require('express');
+import jwt = require('jsonwebtoken');
 import { CustomSession } from '../app'
 
 

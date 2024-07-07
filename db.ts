@@ -1,5 +1,5 @@
-import { Pool, Client } from 'pg'
-import dotEnv from 'dotenv'
+import { Client } from 'pg'
+import dotEnv = require('dotenv')
 
 //Configure environment variables
 dotEnv.config({path: './.env'})
