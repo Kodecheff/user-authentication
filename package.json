@@ -4,9 +4,16 @@
   "description": "",
   "main": "./src/app.js",
   "scripts": {
-    "start": "ts-node ./src/app.ts",
-    "build": "tsc ./src/app.ts"
+    "start": "nodemon src/app.ts",
+    "build": "rimraf dist && tsc",
+    "ts.check": "tsc --project tsconfig.json",
+    "add-build": "git add dist"
   },
+  "pre-commit": [
+    "ts.check",
+    "build",
+    "add-build"
+  ],
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -31,6 +38,8 @@
     "@types/node": "^20.14.9",
     "@types/pg": "^8.11.6",
     "@types/uuid": "^10.0.0",
+    "pre-commit": "^1.2.2",
+    "rimraf": "^5.0.8",
     "typescript": "^5.5.3"
   }
 }
