@@ -4,23 +4,21 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express = require("express");
-const dotEnv = require("dotenv");
 const fileUpload = require("express-fileupload");
 const session = require("express-session");
+const config_1 = __importDefault(require("./config"));
 const auth_1 = __importDefault(require("./routers/auth"));
 const api_1 = __importDefault(require("./routers/api"));
 const logger_1 = __importDefault(require("./middlewares/logger"));
 const db_1 = require("../db");
 const app = express();
-const port = 1999;
-//Configure environment variables
-dotEnv.config({ path: './.env' });
+const port = config_1.default.port;
 app.use(fileUpload());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 // connect to database
 db_1.pool.connect().then(() => {
-    console.log('Connected to PostgreSQL database');
+    console.log(`Connected to PostgreSQL ${config_1.default.env} database`);
 })
     .catch((err) => {
     console.error('Error connecting to PostgreSQL database', err);
@@ -39,6 +37,6 @@ app.get('/', (req, res) => {
     res.status(200).send("Welcome to my HNG task 2");
 });
 app.listen(port, () => {
-    console.log(`Server running on port: ${port}`);
+    console.log(`${config_1.default.server_msg}: ${port}`);
 });
 //# sourceMappingURL=app.js.map

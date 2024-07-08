@@ -2,6 +2,7 @@ import express = require('express');
 import dotEnv = require('dotenv')
 import fileUpload = require('express-fileupload');
 import session = require('express-session')
+import config from './config'
 import { Session } from 'express-session';
 
 import authRoute from './routers/auth'
@@ -11,16 +12,13 @@ import { pool } from '../db';
 
 const app = express()
 
-const port = 1999
+const port = config.port
 
 // Sessioning
 export interface CustomSession extends Session {
   userId: string;
+  user: string
 }
-
-
-//Configure environment variables
-dotEnv.config({path: './.env'})
 
 
 app.use(fileUpload())
@@ -30,7 +28,7 @@ app.use(express.json());
 
 // connect to database
 pool.connect().then(() => {
-  console.log('Connected to PostgreSQL database');
+  console.log(`Connected to PostgreSQL ${config.env} database`);
 })
 .catch((err) => {
   console.error('Error connecting to PostgreSQL database', err);
@@ -55,5 +53,5 @@ app.get('/', (req: express.Request, res: express.Response) => {
 
 
 app.listen(port, () => {
-  console.log(`Server running on port: ${port}`)
+  console.log(`${config.server_msg}: ${port}`)
 })

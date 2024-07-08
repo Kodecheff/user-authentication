@@ -16,13 +16,6 @@ const express_validator_1 = require("express-validator");
 const uuid_1 = require("uuid");
 const db_1 = require("../../../db");
 const router = express.Router();
-const createTable = `
-  CREATE TABLE users(
-    userId serial PRIMARY KEY,
-    column1 datatype1,
-    column2 datatype2
-  );
-`;
 /*
 ----@usage: To register a user
 ----@url: /auth/register
@@ -46,8 +39,9 @@ router.post("/register", [
         ]);
         if (users.rows.length > 0) {
             return res.status(400).json({
-                status: "error",
-                message: "User already registered.",
+                status: "Bad request",
+                message: "Registration unsuccessful",
+                statusCode: 400
             });
         }
         // Encrypt password

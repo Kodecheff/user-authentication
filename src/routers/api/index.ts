@@ -3,7 +3,6 @@ import { v4 as uuidv4 } from "uuid";
 
 import { pool } from '../../../db';
 import userAuth from '../../middlewares/auth';
-import { User } from '../../models/User';
 import { CustomSession } from '../../app';
 
 
@@ -30,7 +29,7 @@ router.get('/users/:id',userAuth, async (req: express.Request, res: express.Resp
       })
     }
 
-    let user: User = result.rows[0]
+    let user = result.rows[0]
 
     console.log(result.rows)
 
@@ -94,10 +93,8 @@ router.get('/organisations',userAuth, async (req: express.Request, res: express.
     })
 
   }catch(e){
-
+    console.log(e)
   }
-
-
 })
 
 

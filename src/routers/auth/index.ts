@@ -6,17 +6,8 @@ import { v4 as uuidv4 } from "uuid";
 
 import { pool } from "../../../db";
 import { CustomSession } from "../../app";
-import { User } from "../../models/User";
 
 const router = express.Router();
-
-const createTable = `
-  CREATE TABLE users(
-    userId serial PRIMARY KEY,
-    column1 datatype1,
-    column2 datatype2
-  );
-`;
 
 /*
 ----@usage: To register a user
@@ -47,9 +38,10 @@ router.post(
 
       if (users.rows.length > 0) {
         return res.status(400).json({
-          status: "error",
-          message: "User already registered.",
-        });
+          status: "Bad request",
+          message: "Registration unsuccessful",
+          statusCode: 400
+      });
       }
 
       // Encrypt password
@@ -67,7 +59,7 @@ router.post(
         [userId, firstName, lastName, email, password, phone]
       );
 
-      let user: User = result.rows[0];
+      let user = result.rows[0];
 
       //create organisation
       const orgQuery = await pool.query(`INSERT INTO organisations(orgid, name, description) VALUES($1, $2, $3) RETURNING *`, 
@@ -156,7 +148,7 @@ router.post(
         });
       }
 
-      const user: User = results.rows[0];
+      const user = results.rows[0];
 
       let isMatch: boolean = await bcrypt.compare(password, user.password);
 

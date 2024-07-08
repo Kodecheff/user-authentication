@@ -81,6 +81,7 @@ router.get('/organisations', auth_1.default, (req, res) => __awaiter(void 0, voi
         });
     }
     catch (e) {
+        console.log(e);
     }
 }));
 /*
